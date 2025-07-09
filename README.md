@@ -100,5 +100,6 @@ Tu veux proposer une amélioration ? Discuter de l’intégration dans un projet
 
 ---
 
-> 🛠️ Maintenu par des devs **passionnés & bénévoles**. Soyez compréhensif 🙏 
+> 🛠️ Maintenu par des devs **passionnés & bénévoles**. Soyez compréhensif 🙏
+
 > Chatgpt nous as permis d'économiser du temps en redigant à notre place ce fichier et le readme. Je pense que je n'apprend rien à personne en precisant que cet outil magique a encore besoin d'une supervision humaine.
