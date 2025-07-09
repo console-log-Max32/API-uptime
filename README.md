@@ -9,7 +9,7 @@ Ajoutez vos liens, consultez l'historique des temps de réponse, et visualisez t
 
 * ➕ Ajout d'un site à surveiller (avec mot de passe/secret)
 * 📊 Récupération de l'historique des temps de réaction (ms)
-* 🟢 Vérification automatique de l'uptime toutes les 3 minutes
+* 🟢 Vérification automatique de l'uptime toutes les 3 heures (nous réfléchissons à un éventuel plan VIP voir premium qui permettrait de reduire ce délai)
 * 🗃️ Sauvegarde et rotation automatique de la base de données
 * 📈 Intégration HTML prête à l'emploi avec graphique (Chart.js)
 
