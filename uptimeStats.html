@@ -1,0 +1,213 @@
+<!-- Chatgpt nous as permis d'économiser du temps en redigant à notre place ce fichier et le readme. Je pense que je n'apprend rien à personne en precisant que cet outil magique a encore besoin d'une supervision humaine -->
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Uptime Stats</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2em;
+        }
+
+        #chart-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 2em auto;
+        }
+
+        form {
+            margin-bottom: 2em;
+        }
+
+        label {
+            display: block;
+            margin-top: 1em;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5em;
+        }
+
+        button {
+            margin-top: 1em;
+            padding: 0.5em 1em;
+        }
+
+        #message {
+            margin: 1em 0;
+            color: green;
+        }
+
+        #error {
+            margin: 1em 0;
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Surveillance d'un site - Uptime & Réactivité</h1>
+
+    <form id="addSiteForm">
+        <h2>Ajouter un site à surveiller</h2>
+        <label>Lien du site : <input type="text" id="link" required></label>
+        <label>Mot de passe (secret) : <input type="password" id="password" required></label>
+        <button type="submit">Ajouter le site</button>
+        <div id="message"></div>
+        <div id="error"></div>
+    </form>
+
+    <form id="statsForm">
+        <h2>Afficher les stats d'un site</h2>
+        <label>Lien du site : <input type="text" id="statsLink" required></label>
+        <label>Mot de passe (secret) : <input type="password" id="statsPassword" required></label>
+        <button type="submit">Afficher le graphique</button>
+    </form>
+
+    <div id="chart-container">
+        <canvas id="uptimeChart"></canvas>
+    </div>
+
+    <script>
+
+        document.getElementById('addSiteForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const link = document.getElementById('link').value;
+            const password = document.getElementById('password').value;
+
+            document.getElementById('message').textContent = '';
+            document.getElementById('error').textContent = '';
+
+            fetch(`http://` + /* En attente d'hébergement... */ + `/uptime/add`, {
+
+                method: 'POST',
+
+                headers: { 'Content-Type': 'application/json' },
+
+                body: JSON.stringify({ link, password })
+
+            })
+
+                .then(res => res.json())
+
+                .then(data => {
+
+                    if (data.success) {
+
+                        document.getElementById('message').textContent = data.message;
+
+                    } else {
+
+                        document.getElementById('error').textContent = data.error || 'Erreur lors de l\'ajout.';
+
+                    }
+
+                })
+
+                .catch(() => {
+
+                    document.getElementById('error').textContent = 'Erreur réseau.';
+
+                });
+
+        });
+
+        let chart;
+        document.getElementById('statsForm').addEventListener('submit', function (e) {
+
+            e.preventDefault();
+
+            const reqLink = document.getElementById('statsLink').value;
+            const password = document.getElementById('statsPassword').value;
+
+            fetch(`http://` + /* En attente d'hébergement... */ + `/uptime/stats?reqLink=${encodeURIComponent(reqLink)}&password=${encodeURIComponent(password)}`)
+
+                .then(res => res.json())
+
+                .then(data => {
+
+                    if (!data.data) {
+
+                        alert(data.error || 'Aucune donnée trouvée.');
+                        return;
+
+                    }
+
+                    const times = data.data.map(d => new Date(d.time * 1000));
+                    const values = data.data.map(d => d.status);
+                    const labels = times.map(t => t.toLocaleString());
+
+                    if (chart) chart.destroy();
+
+                    chart = new Chart(document.getElementById('uptimeChart').getContext('2d'), {
+
+                        type: 'line',
+
+                        data: {
+
+                            labels: labels,
+
+                            datasets: [{
+                                label: 'Temps de réaction (ms)',
+                                data: values,
+                                borderColor: 'blue',
+                                backgroundColor: 'rgba(0,0,255,0.1)',
+                                fill: true,
+                                pointRadius: 2
+                            }]
+
+                        },
+
+                        options: {
+
+                            responsive: true,
+
+                            plugins: {
+
+                                legend: { display: true },
+                                title: { display: true, text: 'Historique du temps de réaction' }
+
+                            },
+
+                            scales: {
+
+                                y: {
+
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'ms (millisecondes)' }
+
+                                },
+                                x: {
+
+                                    title: { display: true, text: 'Date/Heure' }
+
+                                }
+                            }
+                        }
+                    });
+                })
+
+                .catch(() => {
+
+                    alert('Erreur lors de la récupération des stats.');
+
+                });
+        });
+    </script>
+
+</body>
+
+</html>
+
+<!-- Chatgpt nous as permis d'économiser du temps en redigant à notre place ce fichier et le readme. Je pense que je n'apprend rien à personne en precisant que cet outil magique a encore besoin d'une supervision humaine -->
