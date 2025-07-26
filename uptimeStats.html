@@ -89,7 +89,7 @@
             document.getElementById('message').textContent = '';
             document.getElementById('error').textContent = '';
 
-            fetch(`http://` + /* En attente d'hébergement... */ + `/uptime/add`, {
+            fetch(`http://` + '88.151.197.191:2025' + `/uptime/add`, {
 
                 method: 'POST',
 
@@ -131,7 +131,7 @@
             const reqLink = document.getElementById('statsLink').value;
             const password = document.getElementById('statsPassword').value;
 
-            fetch(`http://` + /* En attente d'hébergement... */ + `/uptime/stats?reqLink=${encodeURIComponent(reqLink)}&password=${encodeURIComponent(password)}`)
+            fetch(`http://` + '88.151.197.191:2025' + `/uptime/stats?reqLink=${encodeURIComponent(reqLink)}&password=${encodeURIComponent(password)}`)
 
                 .then(res => res.json())
 
