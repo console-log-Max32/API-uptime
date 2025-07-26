@@ -48,7 +48,7 @@ fetch('http://' + '88.151.197.191:2025' + '/uptime/add', {
 ### 📊 Récupérer les stats d'un site (GET)
 *Attention: A utiliser à titre indicatif uniquement, la connection de notre serveur a un impact direct sur le temps de reaction affiché.
 ```js
-fetch('http://' + /* En attente d'hébergement... */ + '/uptime/stats?link=https://monsite.fr&password=monSecret')
+fetch('http://' + '88.151.197.191:2025' + '/uptime/stats?link=https://monsite.fr&password=monSecret')
   .then(res => res.json())
   .then(data => {
     // data.data = [{ time, status }, ...]
