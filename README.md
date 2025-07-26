@@ -19,7 +19,7 @@ Ajoutez vos liens, consultez l'historique des temps de réponse, et visualisez t
 
 > Par défaut : 
 ```js
-`http://` + /* En attente d'hébergement... */ + `/uptime/` 
+http://88.151.197.191:2025/uptime
 ```
 
 ---
@@ -29,7 +29,7 @@ Ajoutez vos liens, consultez l'historique des temps de réponse, et visualisez t
 ### ➕ Ajouter un site à surveiller
 
 ```js
-fetch('http://' + /* En attente d'hébergement... */ + '/uptime/add', {
+fetch('http://' + '88.151.197.191:2025' + '/uptime/add', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
